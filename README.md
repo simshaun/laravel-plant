@@ -63,3 +63,11 @@ run `php artisan plant::seed users`
 ### Controlling the order that seeds are grown
 Each seed class may contain an `order()` method that returns a sort order integer.
 Seeds with a lower sort order are grown first.
+
+
+---
+
+## Issues
+
+If you find any bugs or have suggestions, please add them to the
+[Issue Tracker](https://github.com/simshaun/laravel-plant/issues).
