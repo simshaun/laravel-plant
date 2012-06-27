@@ -6,9 +6,10 @@ Plant is used to seed your project with data.
 
 ## Getting started
 
- 1. Add the `plant` bundle to *bundles.php*
- 2. Create a `seeds` folder in your application directory.
- 3. Create seed files. For example:
+ 1. Install by running `php artisan bundle:install plant`
+ 2. Enable the `plant` bundle in application/*bundles.php*
+ 3. Create a `seeds` folder in your application directory.
+ 4. Create seed files. For example:
 
         <?php // file: /application/seeds/users.php
 
@@ -41,17 +42,17 @@ Plant is used to seed your project with data.
 ## Growing Seeds
 
 ### All at once
-run `artisan plant::seed all`
+run `php artisan plant::seed all`
 
 #### Excluding seeds
 You can exclude specific seeds from being grown by using the `--not` option.
 Separate multiple exclusions with a comma.
 
-`artisan plant::seed all --not=users,posts`
+e.g. `php artisan plant::seed all --not=users,posts`
 
 
 ### Individual seeds (e.g. users)
-run `artisan plant::seed users`
+run `php artisan plant::seed users`
 
  > If multiple seeds with the same filename exist, they will all be grown.
  > This could happen when seeds are stored in bundles.
