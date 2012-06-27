@@ -1,6 +1,6 @@
 # Plant
 
-Plant is used to seed your project with data.
+Plant is a data-fixtures bundle that offers an easy way to seed your project with data using "seeds".
 
 ---
 
