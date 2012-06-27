@@ -39,6 +39,12 @@ Plant is used to seed your project with data.
 
 ---
 
+### Controlling the order that seeds are grown
+Each seed class may contain an `order()` method that returns a sort order integer.
+Seeds with a lower sort order are grown first.
+
+---
+
 ## Growing Seeds
 
 ### All at once
@@ -51,6 +57,13 @@ Separate multiple exclusions with a comma.
 e.g. `php artisan plant::seed all --not=users,posts`
 
 
+### Multiple seeds (e.g. users,posts)
+run `php artisan plant::seed users,posts`
+
+ > Regardless of which order you list the seeds in the CLI command, Plant will always grow
+ > them according to each seed's sort order.
+
+
 ### Individual seeds (e.g. users)
 run `php artisan plant::seed users`
 
@@ -59,10 +72,6 @@ run `php artisan plant::seed users`
  > e.g. **application/seeds/users.php** and **bundles/plant/seeds/users.php**
  >
  > *Sort orders are still used.*
-
-### Controlling the order that seeds are grown
-Each seed class may contain an `order()` method that returns a sort order integer.
-Seeds with a lower sort order are grown first.
 
 
 ---

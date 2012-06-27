@@ -50,12 +50,16 @@ class Plant_Seed_Task extends Task {
 
     protected function _getSeedFiles($name = null)
     {
-        $filename = empty($name) ? '*' : $name;
+        $filenames = ($name ?: '*');
+        $filenames = explode(',', $filenames);
 
         $files = array();
         foreach ($this->_getSeedFolders() as $path)
         {
-            $files = array_merge($files, glob($path.$filename.'.php'));
+            foreach ($filenames as $filename)
+            {
+                $files = array_merge($files, glob($path.$filename.'.php'));
+            }
         }
 
         if (false !== $this->_config('not'))
