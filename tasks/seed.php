@@ -2,6 +2,8 @@
 
 class Plant_Seed_Task extends Task {
 
+    protected $references = array();
+
     public function run($arguments)
     {
         $command = empty($arguments) || $arguments[0] === '' ? 'displayHelp' : $arguments[0];
@@ -92,7 +94,9 @@ class Plant_Seed_Task extends Task {
     protected function _growSeed($seed)
     {
         $this->_log('Growing '.get_class($seed));
+        $seed->setReferences($this->references);
         $seed->grow();
+        $this->references = array_merge($this->references, $seed->getReferences());
     }
 
     protected function _growAllSeeds($name = null)
