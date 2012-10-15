@@ -1,6 +1,7 @@
 # Plant
 
-Plant is a data-fixtures bundle that offers an easy way to seed your project with data using "seeds".
+Plant is a bundle for Laravel that offers an easy way to seed your project and/or tests with data using "seeds".
+Works well in combination with the excellent [Faker library](https://github.com/fzaninotto/Faker).
 
 ---
 
