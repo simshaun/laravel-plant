@@ -8,7 +8,7 @@ Works well in combination with the excellent [Faker library](https://github.com/
 ## Getting started
 
  1. Install by running `php artisan bundle:install plant`
- 2. Enable the `plant` bundle in application/*bundles.php*
+ 2. Enable the `plant` bundle in application/bundles.php
  3. Create a `seeds` folder in your application directory.
  4. Create seed files. For example:
 
