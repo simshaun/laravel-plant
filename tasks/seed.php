@@ -3,9 +3,12 @@
 class Plant_Seed_Task extends Task {
 
     protected $references = array();
+    protected $config = null;
 
     public function run($arguments)
     {
+        $this->config = Bundle::get('plant') ?: [];
+
         $command = empty($arguments) || $arguments[0] === '' ? 'displayHelp' : $arguments[0];
         $arguments = array_slice($arguments, 1);
 
@@ -115,16 +118,24 @@ class Plant_Seed_Task extends Task {
             $seeds[] = $this->_getSeedObject($file);
         }
 
-        if (!empty($seeds))
+        if (empty($seeds)) {
+            $this->_log('There are no classes to seed');
+            return;
+        }
+
+        $is_use_cli_sorting = array_get($this->config, 'use_cli_sorting', false);
+        if (!is_null($name) && !$is_use_cli_sorting)
         {
             $seeds = $this->_sortSeeds($seeds);
-            foreach ($seeds as $seed)
-            {
-                $this->_growSeed($seed);
-            }
-
-            $this->_log('Finished!');
         }
+        
+
+        foreach ($seeds as $seed)
+        {
+            $this->_growSeed($seed);
+        }
+
+        $this->_log('Finished!');
     }
 
     /**
