@@ -15,6 +15,10 @@ Works well in combination with the excellent [Faker library](https://github.com/
         <?php // file: /application/seeds/users.php
 
         class Seed_Users extends \S2\Seed {
+        
+            // This is optional. It lets you specify the order each seed is grown.
+            // Seeds with a lower number are grown first.
+            public $order = 100;
 
             public function grow()
             {
@@ -28,21 +32,27 @@ Works well in combination with the excellent [Faker library](https://github.com/
                 $user->password = '12345678';
                 $user->save();
             }
-
-            // This is optional. It lets you specify the order each seed is grown.
-            // Seeds with a lower number are grown first.
-            public function order()
-            {
-                return 100;
-            }
-
+            
         }
 
 ---
 
 ### Controlling the order that seeds are grown
-Each seed class may contain an `order()` method that returns a sort order integer.
+Each seed class may contain an `order` public property, that contains order integer.
 Seeds with a lower sort order are grown first.
+
+Also, if you want that the order seeds are grown coincide with the order of files (e.q. `plant::seed users,posts,user_post_links`), you may configure it (`order` property isn't used in this case):
+
+    <?php // file: /application/bundles.php
+
+    return array(
+        ...
+        'plant' => array(
+            'auto' => true,
+            'use_cli_sorting' => true
+        ),
+        ...
+    );
 
 ---
 
@@ -85,6 +95,8 @@ use the references feature as shown below.
     <?php // file: /application/seeds/users.php
 
     class Seed_Users extends \S2\Seed {
+    
+        public $order = 100;
 
         public function grow()
         {
@@ -95,12 +107,7 @@ use the references feature as shown below.
 
             $this->addReference('user-a', $user);
         }
-
-        public function order()
-        {
-            return 100;
-        }
-
+        
     }
 
 -
@@ -108,6 +115,8 @@ use the references feature as shown below.
     <?php // file: /application/seeds/posts.php
 
     class Seed_Posts extends \S2\Seed {
+    
+        public $order = 100;
 
         public function grow()
         {
@@ -115,13 +124,6 @@ use the references feature as shown below.
             $post->user_id = $this->getReference('user-a')->id;
             $post->title = 'Lorem Ipsum Foo Foo';
             $post->save();
-        }
-
-        // This seed must be grown after the users seed
-        // so that it can access the "user-a" reference.
-        public function order()
-        {
-            return 200;
         }
 
     }
