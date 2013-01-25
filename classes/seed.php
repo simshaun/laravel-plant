@@ -4,18 +4,13 @@ abstract class Seed {
 
     protected $references = array();
 
+    // Determines when a seed is grown among other seeds
+    public $order = PHP_INT_MAX;
+
     /**
      * Executed after a seed is planted.
      */
     public function grow() {}
-
-    /**
-     * Determines when a seed is grown among other seeds.
-     * @return int
-     */
-    public function order() {
-        return 999999999;
-    }
 
     protected function addReference($id, $object)
     {

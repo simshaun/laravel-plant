@@ -147,7 +147,7 @@ class Plant_Seed_Task extends Task {
      */
     protected function _sortSeedsHelper($a, $b)
     {
-        return $a->order() > $b->order();
+        return $a->order > $b->order;
     }
 
     protected function _log($str)
