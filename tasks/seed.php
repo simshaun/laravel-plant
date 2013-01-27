@@ -2,12 +2,17 @@
 
 class Plant_Seed_Task extends Task {
 
+    static private $defaultConfig = array(
+        'use_cli_sorting' => false,
+        'use_logging' => false
+    );
+
     protected $references = array();
     protected $config = null;
 
     public function run($arguments)
     {
-        $this->config = Bundle::get('plant') ?: [];
+        $this->config = static::_parseConfig(Bundle::get('plant'));
 
         $command = empty($arguments) || $arguments[0] === '' ? 'displayHelp' : $arguments[0];
         $arguments = array_slice($arguments, 1);
@@ -123,8 +128,7 @@ class Plant_Seed_Task extends Task {
             return;
         }
 
-        $is_use_cli_sorting = array_get($this->config, 'use_cli_sorting', false);
-        if (!is_null($name) && !$is_use_cli_sorting)
+        if (!is_null($name) && !$this->config['use_cli_sorting'])
         {
             $seeds = $this->_sortSeeds($seeds);
         }
@@ -163,6 +167,7 @@ class Plant_Seed_Task extends Task {
 
     protected function _log($str)
     {
+        if (!$this->config['use_logging']) return;
         echo $str.PHP_EOL;
     }
 
@@ -176,6 +181,17 @@ class Plant_Seed_Task extends Task {
         {
             return false;
         }
+    }
+
+    static private function _parseConfig($config = array()) {
+        $res = array();
+        $config = $config ?: array();
+
+        foreach (static::$defaultConfig as $k => $v) {
+            $res[$k] = array_get($config, $k, $v);
+        }
+
+        return $res;
     }
 
 }
